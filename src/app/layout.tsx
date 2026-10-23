@@ -6,6 +6,7 @@ import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { AuthGuard } from '@/components/auth/AuthGuard';
 import { CyberFaceBackground } from '@/components/background/CyberFaceBackground';
+import { LiveCampusPulseTicker } from '@/components/conversion/LiveCampusPulseTicker';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -63,6 +64,7 @@ export default function RootLayout({
                 {children}
               </AuthGuard>
             </main>
+            <LiveCampusPulseTicker />
             <Footer />
           </div>
         </MarketplaceProvider>

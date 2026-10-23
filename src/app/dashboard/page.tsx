@@ -6,6 +6,9 @@ import { useMarketplace } from '@/lib/store';
 import { Badge } from '@/components/ui/Badge';
 import { PostGigModal } from '@/components/gigs/PostGigModal';
 import { WalletModal } from '@/components/dashboard/WalletModal';
+import { GamifiedProfileMeter } from '@/components/conversion/GamifiedProfileMeter';
+import { ZeroFeeVelocityCard } from '@/components/conversion/ZeroFeeVelocityCard';
+import { CampusLeaderboard } from '@/components/conversion/CampusLeaderboard';
 import { 
   Briefcase, 
   Clock, 
@@ -124,12 +127,19 @@ export default function DashboardPage() {
         </div>
       </div>
 
+      {/* Endowment Effect: Gamified Profile Investment Meter */}
+      <GamifiedProfileMeter />
+
+      {/* Loss Aversion: Zero-Fee Velocity Commission Shield */}
+      <ZeroFeeVelocityCard />
+
       {/* Tabs */}
       <div className="flex border-b border-slate-200 dark:border-slate-800 text-xs sm:text-sm font-bold gap-2 sm:gap-6 overflow-x-auto">
         {[
           { id: 'orders', label: `Active Projects (${myOrders.length})` },
           { id: 'my_gigs', label: `My Posted Tasks (${myPostedGigs.length})` },
           { id: 'my_proposals', label: `Submitted Proposals (${mySubmittedProposals.length})` },
+          { id: 'leaderboard', label: '🏆 Campus Leaderboard & Status' },
         ].map((tab) => (
           <button
             key={tab.id}
@@ -326,6 +336,12 @@ export default function DashboardPage() {
           )}
         </div>
       )}
+
+      {/* Tab 4: Institutional Status Badges & Leaderboard */}
+      {(activeTab as string) === 'leaderboard' && <CampusLeaderboard />}
+
+      {/* Always-visible Institutional Status Leaderboard preview below main tab */}
+      {(activeTab as string) !== 'leaderboard' && <CampusLeaderboard />}
 
       {/* Modals */}
       <PostGigModal isOpen={isPostModalOpen} onClose={() => setIsPostModalOpen(false)} />

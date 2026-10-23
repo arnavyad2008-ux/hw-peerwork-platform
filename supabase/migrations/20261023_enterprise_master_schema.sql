@@ -70,6 +70,10 @@ CREATE TABLE IF NOT EXISTS public.profiles (
   total_spent NUMERIC(12,2) DEFAULT 0.00 CHECK (total_spent >= 0),
   wallet_balance NUMERIC(12,2) DEFAULT 0.00 CHECK (wallet_balance >= 0),
   nav_coins BIGINT DEFAULT 0 CHECK (nav_coins >= 0),
+  is_pro BOOLEAN DEFAULT FALSE,
+  streak_days INTEGER DEFAULT 1 CHECK (streak_days >= 0),
+  avg_response_mins INTEGER DEFAULT 5 CHECK (avg_response_mins >= 1),
+  institutional_badge TEXT DEFAULT 'Verified Campus Developer',
   created_at TIMESTAMPTZ NOT NULL DEFAULT timezone('utc'::text, now()),
   updated_at TIMESTAMPTZ NOT NULL DEFAULT timezone('utc'::text, now()),
 

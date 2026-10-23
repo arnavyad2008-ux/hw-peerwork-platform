@@ -33,6 +33,7 @@ export default function SignUpPage() {
   const [loading, setLoading] = useState(false);
 
   const collegesList = [
+    'KIET Group of Institutions',
     'IIT Delhi',
     'Delhi University (DU - North Campus)',
     'Delhi University (DU - South Campus)',

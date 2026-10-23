@@ -6,6 +6,8 @@ import { StudentProfileCard } from '@/components/dashboard/StudentProfileCard';
 import { StarRating } from '@/components/ui/StarRating';
 import { Badge } from '@/components/ui/Badge';
 import { WalletModal } from '@/components/dashboard/WalletModal';
+import { GamifiedProfileMeter } from '@/components/conversion/GamifiedProfileMeter';
+import { ZeroFeeVelocityCard } from '@/components/conversion/ZeroFeeVelocityCard';
 import { 
   Star, 
   MessageSquare, 
@@ -56,8 +58,14 @@ export default function ProfilePage() {
         </div>
       </div>
 
+      {/* Gamified Profile Investment Meter */}
+      <GamifiedProfileMeter />
+
       {/* Profile Card (Editable) */}
       <StudentProfileCard user={currentUser} isEditable={true} />
+
+      {/* Zero-Fee Velocity Pro Commission Shield */}
+      <ZeroFeeVelocityCard />
 
       {/* Two Columns: Peer Reviews & Completed Projects */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">

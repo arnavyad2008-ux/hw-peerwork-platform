@@ -44,6 +44,7 @@ interface MarketplaceContextType {
   withdrawFunds: (amount: number, upiId: string) => boolean;
   addNavCoins: (coins: number, source: string) => void;
   convertNavCoinsToRupees: (coinsToConvert: number) => boolean;
+  upgradeToPro: () => boolean;
   theme: 'light' | 'dark';
   toggleTheme: () => void;
   isRealSupabase: boolean;
@@ -827,6 +828,47 @@ export function MarketplaceProvider({ children }: { children: React.ReactNode })
     return true;
   };
 
+  // Activate "Zero-Fee Velocity" Pro Commission Shield (₹199/mo or free unlock)
+  const upgradeToPro = (): boolean => {
+    const proCost = 199;
+    const deductAmount = currentUser.wallet_balance >= proCost ? proCost : 0;
+
+    if (deductAmount > 0) {
+      const tx: WalletTransaction = {
+        id: `tx_pro_${Date.now()}`,
+        user_id: currentUser.id,
+        amount: deductAmount,
+        type: 'debit',
+        description: 'Activated hw Pro Commission Shield (0% Platform Fee + Priority Ranking)',
+        created_at: new Date().toISOString(),
+      };
+      setTransactions((prev) => {
+        const updated = [tx, ...prev];
+        safeSave('peerwork_transactions', updated);
+        return updated;
+      });
+    }
+
+    setCurrentUser((prev) => {
+      const updatedUser: UserProfile = {
+        ...prev,
+        is_pro: true,
+        wallet_balance: Math.max(0, prev.wallet_balance - deductAmount),
+        streak_days: (prev.streak_days || 7) + 1,
+        institutional_badge: prev.institutional_badge || `Verified ${prev.college_name.split(' ')[0]} Developer`,
+      };
+      safeSave('hw_paavs_user', updatedUser);
+      setAllUsers((users) => {
+        const nextUsers = users.map((u) => (u.id === prev.id ? updatedUser : u));
+        safeSave('hw_paavs_all_users', nextUsers);
+        return nextUsers;
+      });
+      return updatedUser;
+    });
+
+    return true;
+  };
+
   return (
     <MarketplaceContext.Provider
       value={{
@@ -857,6 +899,7 @@ export function MarketplaceProvider({ children }: { children: React.ReactNode })
         withdrawFunds,
         addNavCoins,
         convertNavCoinsToRupees,
+        upgradeToPro,
         theme,
         toggleTheme,
         isRealSupabase,

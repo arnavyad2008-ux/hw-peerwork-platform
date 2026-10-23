@@ -32,6 +32,10 @@ export interface UserProfile {
   total_spent: number;
   wallet_balance: number; // in INR ₹
   nav_coins: number; // In-game Nav Coins (100,000 Nav Coins = 1 INR ₹)
+  is_pro?: boolean; // Zero-Fee Velocity Commission Shield (0% fee vs 10% standard fee)
+  streak_days?: number; // Fast-responder consecutive day streak
+  avg_response_mins?: number; // Average peer response speed in minutes
+  institutional_badge?: string; // e.g., 'Verified KIET Developer', 'Verified IITD Architect'
   created_at: string;
 }
 
