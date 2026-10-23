@@ -5,6 +5,7 @@ import { MarketplaceProvider } from '@/lib/store';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { AuthGuard } from '@/components/auth/AuthGuard';
+import { CyberFaceBackground } from '@/components/background/CyberFaceBackground';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -45,6 +46,9 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark" suppressHydrationWarning>
       <body className={`${inter.variable} font-sans antialiased min-h-screen flex flex-col bg-[#0a0a0c] text-slate-100 transition-colors relative`}>
+        {/* Interactive Low-Poly Cyberpunk Wireframe Face Background */}
+        <CyberFaceBackground />
+
         {/* Hypnotic Atmospheric Background Animations */}
         <div className="ambient-glow" aria-hidden="true">
           <div className="ambient-blob-1" />
